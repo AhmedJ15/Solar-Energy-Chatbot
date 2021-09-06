@@ -1,0 +1,92 @@
+version: "2.0"
+
+intents:
+# - out_of_scope
+  - invoice_initiate
+  - pakistani_greet
+  - pakistani_cities
+  - residential
+  - industrial
+  - reply_units
+  - reply_yearlybill
+  - greet1
+  - greet2
+  - goodbye
+  - affirm
+  - deny
+  - mood_great
+  - mood_unhappy
+  - bot_challenge
+
+responses:
+
+  utter_out_of_scope:
+  - text: "I'm sorry, but I am not able to process that."
+
+  utter_solutiontype:
+  - text: "Alright! What type of Solution are you looking for?"
+
+  utter_residentialquery:
+  - text: "Where is your home located?"
+
+  utter_industrialquery:
+  - text: "Where is your business located?"
+
+  utter_units1:
+  - text: "For quick estimations, I would need to know roughly the area available for solar installation."
+
+  utter_units2:
+  - text: "To start with, what units would you prefer?"
+
+  utter_yearlybill:
+  - text: "Great! One last question: What is your average yearly bill?"
+
+  utter_pakistani_greet:
+  - text: "Waalaikumsalam! How are you?"
+
+  utter_greet:
+  - text: "Hey! How are you?"
+
+  utter_greet2:
+  - text: "I'm doing great. Thanks for asking!"
+
+  utter_deliver_help:
+  - text: "So, how may I help you today?"
+
+  utter_cheer_up:
+  - text: "Oh! I am very sorry to hear that! Is there anyway I can do to help you?"
+
+  utter_did_that_help:
+  - text: "Did that help you?"
+
+  utter_happy:
+  - text: "That's great to hear!"
+
+  utter_goodbye:
+  - text: "Bye"
+
+  utter_iamabot:
+  - text: "I am a bot, powered by Rasa."
+
+
+entities:
+  - yearlybill
+  - units
+
+slots:
+  yearlybill:
+    type: text
+
+  units:
+    type: text
+    
+
+actions:
+- action_verify_yearlybill
+- action_receive_units
+#- action_receive_entity
+
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true
