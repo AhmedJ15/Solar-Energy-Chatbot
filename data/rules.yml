@@ -1,0 +1,35 @@
+version: "2.0"
+
+rules:
+
+- rule: Verify bill 
+  steps:
+  - intent: reply_yearlybill
+  - action: action_verify_yearlybill
+
+- rule: If User says something Out of Scope, utter_out_of_scope should be executed.
+  steps:
+  - intent: nlu_fallback
+  - action: utter_out_of_scope
+
+- rule: Pakistani Greet
+  steps: 
+  - intent: pakistani_greet
+  - action: utter_pakistani_greet
+
+- rule: Respond with Greet
+  steps:
+  - intent: greet2
+  - action: utter_greet2
+  - action: utter_deliver_help
+
+# - rule: Say goodbye anytime the user says goodbye
+#   steps:
+#   - intent: goodbye
+#   - action: utter_goodbye
+
+# - rule: Say 'I am a bot' anytime the user challenges
+#   steps:
+#   - intent: bot_challenge
+#   - action: utter_iamabot
+
