@@ -31,25 +31,25 @@ stories:
   - intent: reply_yearlybill
   - action: action_verify_yearlybill
 
-- story: TestPath1
-  steps:
-  - intent: reply_units
-  - action: utter_yearlybill
-  - intent: reply_yearlybill
-  - action: action_verify_yearlybill
+# - story: TestPath1
+#   steps:
+#   - intent: reply_units
+#   - action: utter_yearlybill
+#   - intent: reply_yearlybill
+#   - action: action_verify_yearlybill
 
 
-- story: TestPath2
-  steps:
-  - intent: pakistani_cities
-  - action: utter_units2
-  - intent: reply_units
-  - action: action_receive_units
+# - story: TestPath2
+#   steps:
+#   - intent: pakistani_cities
+#   - action: utter_units2
+#   - intent: reply_units
+#   - action: action_receive_units
 
 # - story: TestPath3
 #   steps:
-#   - intent: reply_units
-#   - action: action_receive_entity
+#   - intent: reply_yearlybill
+#   - action: action_verify_yearlybill
 
 
 - story: happy path

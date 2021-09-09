@@ -27,10 +27,10 @@ responses:
   - text: "Alright! What type of Solution are you looking for?"
 
   utter_residentialquery:
-  - text: "Where is your home located?"
+  - text: "Ok, where is your home located?"
 
   utter_industrialquery:
-  - text: "Where is your business located?"
+  - text: "Ok, where is your business located?"
 
   utter_units1:
   - text: "For quick estimations, I would need to know roughly the area available for solar installation."
