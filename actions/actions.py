@@ -13,7 +13,18 @@ from rasa_sdk import Action, Tracker
 from rasa_sdk.events import SlotSet
 from rasa_sdk.executor import CollectingDispatcher
 
+class ActionAskForums(Action):       #Make sure to check documentations and complete this actions function.
 
+    def name(self) -> Text:
+        return "action_ask_SolutionType"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
+        
+
+        return [SlotSet("units", Units)]
 
 
 class ActionStoreUnits(Action):

@@ -32,7 +32,7 @@ responses:
   utter_industrialquery:
   - text: "Ok, where is your business located?"
 
-  utter_ask_pk_city:
+  utter_ask_pk_city:   #
   - text: "Alright! Which city are you located in?"
 
   utter_units1:
