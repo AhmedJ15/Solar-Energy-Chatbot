@@ -15,6 +15,7 @@ nlu:
     - May I please have an invoice?
     - Can you please initiate an invoice for me?
     - invoice please
+    - I need help with invoice
 
 - intent: pakistani_greet
   examples: |
@@ -25,11 +26,11 @@ nlu:
 
 - intent: pakistani_cities
   examples: |
-    - Karachi
-    - Islamabad
-    - Lahore
-    - Quetta
-    - Peshawar
+    - [Karachi](pk_city)
+    - [Islamabad](pk_city)
+    - [Lahore](pk_city)
+    - [Quetta](pk_city)
+    - [Peshawar](pk_city)
 
 - intent: reply_units
   examples: |
@@ -37,6 +38,12 @@ nlu:
     - [cm](units)
     - [metres](units)
     - [yards](units)
+    - I would like my units to be [Kanals](units)
+    - [Kanals](units) would be it
+    - It would be [Kanals](units)
+    - [Kanals](units) please
+    - Please measure them in [Kanals](units)
+    - I would like [Kanals](units) please
     
 - intent: reply_yearlybill
   examples: |
@@ -46,6 +53,9 @@ nlu:
     - My yearly bill is [1000](yearlybill)
     - It's around [100](yearlybill)
     - About [10000](yearlybill)
+    - Its around [100](yearlybill)
+    - It is around [100](yearlybill)
+    - Around [10103](yearlybill)
 
 - intent: residential
   examples: |
@@ -144,6 +154,7 @@ nlu:
     - so so perfect
     - so good
     - so perfect
+    - good
 
 - intent: mood_unhappy
   examples: |

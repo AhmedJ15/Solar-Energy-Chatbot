@@ -3,53 +3,53 @@ version: "2.0"
 stories:
 
 
-- story: ResidentialCustomer
-  steps:
-  - intent: invoice_initiate
-  - action: utter_solutiontype
-  - intent: residential
-  - action: utter_residentialquery
-  - intent: pakistani_cities
-  - action: utter_units1
-  - action: utter_units2
-  - intent: reply_units
-  - action: utter_yearlybill
-  - intent: reply_yearlybill
-  - action: action_verify_yearlybill
+# - story: ResidentialCustomer
+#   steps:
+#   - intent: invoice_initiate
+#   - action: utter_solutiontype
+#   - intent: residential
+#   - action: utter_residentialquery
+#   - intent: pakistani_cities
+#   - action: utter_units1
+#   - action: utter_units2
+#   - intent: reply_units
+#   - action: utter_yearlybill
+#   - intent: reply_yearlybill
+#   - action: action_verify_yearlybill
 
-- story: IndustrialCustomer
-  steps:
-  - intent: invoice_initiate
-  - action: utter_solutiontype
-  - intent: industrial
-  - action: utter_industrialquery
-  - intent: pakistani_cities
-  - action: utter_units1
-  - action: utter_units2
-  - intent: reply_units
-  - action: utter_yearlybill
-  - intent: reply_yearlybill
-  - action: action_verify_yearlybill
+# - story: IndustrialCustomer
+#   steps:
+#   - intent: invoice_initiate
+#   - action: utter_solutiontype
+#   - intent: industrial
+#   - action: utter_industrialquery
+#   - intent: pakistani_cities
+#   - action: utter_units1
+#   - action: utter_units2
+#   - intent: reply_units
+#   - action: utter_yearlybill
+#   - intent: reply_yearlybill
+#   - action: action_verify_yearlybill
 
-- story: TestPath1
-  steps:
-  - intent: reply_units
-  - action: utter_yearlybill
-  - intent: reply_yearlybill
-  - action: action_verify_yearlybill
+# - story: TestPath1
+#   steps:
+#   - intent: reply_units
+#   - action: utter_yearlybill
+#   - intent: reply_yearlybill
+#   - action: action_verify_yearlybill
 
 
-- story: TestPath2
-  steps:
-  - intent: pakistani_cities
-  - action: utter_units2
-  - intent: reply_units
-  - action: action_receive_units
+# - story: TestPath2
+#   steps:
+#   - intent: pakistani_cities
+#   - action: utter_units2
+#   - intent: reply_units
+#   - action: action_receive_units
 
 # - story: TestPath3
 #   steps:
-#   - intent: reply_units
-#   - action: action_receive_entity
+#   - intent: reply_yearlybill
+#   - action: action_verify_yearlybill
 
 
 - story: happy path

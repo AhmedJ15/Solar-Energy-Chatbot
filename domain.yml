@@ -27,10 +27,13 @@ responses:
   - text: "Alright! What type of Solution are you looking for?"
 
   utter_residentialquery:
-  - text: "Where is your home located?"
+  - text: "Ok, where is your home located?"
 
   utter_industrialquery:
-  - text: "Where is your business located?"
+  - text: "Ok, where is your business located?"
+
+  utter_ask_pk_city:
+  - text: "Alright! Which city are you located in?"
 
   utter_units1:
   - text: "For quick estimations, I would need to know roughly the area available for solar installation."
@@ -72,12 +75,15 @@ responses:
 entities:
   - yearlybill
   - units
-
+  - pk_city
 slots:
   yearlybill:
     type: text
 
   units:
+    type: text
+
+  pk_city:
     type: text
     
 
@@ -85,6 +91,13 @@ actions:
 - action_verify_yearlybill
 - action_receive_units
 #- action_receive_entity
+
+forms:
+  invoice_form:
+    required_slots: 
+      pk_city:
+        - type: from_entity
+          entity: pk_city 
 
 
 session_config:
