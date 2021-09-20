@@ -1,7 +1,9 @@
 version: "2.0"
 
 intents:
-# - out_of_scope
+  - out_of_scope
+  - intent_explain
+  - intent_invoice_cancel
   - invoice_initiate
   - pakistani_greet
   - pakistani_cities
@@ -20,11 +22,11 @@ intents:
 
 responses:
 
-  utter_out_of_scope:
-  - text: "I'm sorry, but I am not able to process that."
+  # utter_out_of_scope:
+  # - text: "I'm sorry, but I am not able to process that."
 
-  utter_solutiontype:
-  - text: "Alright! What type of Solution are you looking for?"
+  utter_out_of_scope2:
+  - text: "I'm sorry, but I was not programmed to be able to handle that."
 
   utter_residentialquery:
   - text: "Ok, where is your home located?"
@@ -32,8 +34,17 @@ responses:
   utter_industrialquery:
   - text: "Ok, where is your business located?"
 
-  utter_ask_pk_city:   #
-  - text: "Alright! Which city are you located in?"
+  utter_ask_units: 
+  - text: "Alright, which units would you prefer?"
+
+  utter_ask_yearlybill: 
+  - text: "Great! One last question: What is your average yearly bill?"
+
+  # utter_ask_pk_city:   #
+  # - text: "Alright! Which city are you located in?"
+
+  utter_ask_SolutionType:
+  - text: "Alright! What type of Solution are you looking for?"
 
   utter_units1:
   - text: "For quick estimations, I would need to know roughly the area available for solar installation."
@@ -59,8 +70,6 @@ responses:
   utter_cheer_up:
   - text: "Oh! I am very sorry to hear that! Is there anyway I can do to help you?"
 
-  utter_did_that_help:
-  - text: "Did that help you?"
 
   utter_happy:
   - text: "That's great to hear!"
@@ -71,12 +80,45 @@ responses:
   utter_iamabot:
   - text: "I am a bot, powered by Rasa."
 
+  utter_explain_pk_city:
+  - text: "We need to know which city, so we can prepare your invoice accordingly."
+
+  utter_explain_yearlybill:
+  - text: "We need that information to be able to calculate the potential amount of cut you'll be making after the installation."
+
+  utter_explain_units:
+  - text: "We need a unit to calculate whether it is large enough for the solar panels to be installed."
+
+  utter_explain_SolutionType:
+  - text: "We need this information, so we can suggest you the best installments."
+
+  utter_cancel_forms:
+  - text: "Alright, I am cancelling the invoice. Is there perhaps anything else I could help you with?"
+
+
+  utter_ask_rephrase:          #Check the following for 2-stage fallback: https://rasa.com/docs/rasa/fallback-handoff#two-stage-fallback
+  - text: "Can you kindly rephrase that please?"
+
+  # utter_default:
+  # - text: "I'm sorry, but I can't seem to help you."
+
+  utter_default:
+    - text: “Do you want to make a reservation?”
+      buttons:
+        - title: Main Menu
+          payload: /menu
+
+  utter_ask_affirmation:
+  - text: "Yooo what?"
 
 entities:
   - yearlybill
   - units
   - pk_city
+  - SolutionType
+
 slots:
+
   yearlybill:
     type: text
 
@@ -85,19 +127,42 @@ slots:
 
   pk_city:
     type: text
-    
+
+  SolutionType:
+    type: text
+
+  requested_slot:
+    type: categorical
+    values:
+      - yearlybill
+      - units
+      - pk_city
+      - SolutionType
+    influence_conversation: true
 
 actions:
 - action_verify_yearlybill
 - action_receive_units
 #- action_receive_entity
+- action_ask_pk_city
+- action_cancel_invoice
+- action_save_conversation
 
 forms:
   invoice_form:
     required_slots: 
+      SolutionType:
+        - type: from_entity
+          entity: SolutionType
       pk_city:
         - type: from_entity
           entity: pk_city 
+      units:
+        - type: from_entity
+          entity: units
+      yearlybill:
+        - type: from_entity
+          entity: yearlybill
 
 
 session_config:

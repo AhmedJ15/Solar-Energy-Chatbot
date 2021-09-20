@@ -6,7 +6,16 @@ nlu:
 # - intent: out_of_scope
 #   examples: |
 #     - I want to buy a pizza
+#     - change my password please
     
+- intent: intent_invoice_cancel
+  examples: |
+    - Cancel the invoice please
+    - cancel
+    - I dont want to do this anymore
+    - stop 
+    - I want to do something else
+    - Go back
 
 - intent: invoice_initiate
   examples: |
@@ -59,24 +68,24 @@ nlu:
 
 - intent: residential
   examples: |
-    - home
-    - residential
-    - I'm looking for a residential solution
-    - I'm looking for a solution for my home
-    - For my home
-    - For my residence
-    - Its for my residence
+    - [home](SolutionType)
+    - [residential](SolutionType)
+    - I'm looking for a [residential](SolutionType) solution
+    - I'm looking for a solution for my [home](SolutionType)
+    - For my [home](SolutionType)
+    - For my [residence](SolutionType)
+    - Its for my [residence](SolutionType)
 
 - intent: industrial
   examples: |
-    - business
-    - industrial
-    - I'm looking for a business solution
-    - I'm looking for a solution for my business
-    - I'm looking for a solution for my industry
-    - Its for my business
-    - For my business
-    - For my industry
+    - [business](SolutionType)
+    - [industrial](SolutionType)
+    - I'm looking for a [business](SolutionType) solution
+    - I'm looking for a solution for my [business](SolutionType)
+    - I'm looking for a solution for my [industry](SolutionType)
+    - Its for my [business](SolutionType)
+    - For my [business](SolutionType)
+    - For my [industry](SolutionType)
 
 
 - intent: greet1
@@ -179,4 +188,14 @@ nlu:
     - are you a human?
     - am I talking to a bot?
     - am I talking to a human?
+
+- intent: intent_explain
+  examples: |
+    - Why do you need to know that?
+    - Why
+    - Why is that important?
+    - Explain please
+    - Why do you want that information?
+    
+    
 

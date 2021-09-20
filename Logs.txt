@@ -1,0 +1,7 @@
+1. Commented line 18 and 19 in rules.yml
+2. Testing if it works with active_loop at the end of interruption. Stories.yml line95
+
+
+
+Notes:
+You can remove "action: invoice_form" after utter_explain, but then that would end the form.
