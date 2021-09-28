@@ -79,6 +79,15 @@ stories:
   - intent: deny
   - action: utter_goodbye
 
+# - story: areasize first
+#   steps:
+#   - action: invoice_form
+#   - active_loop: invoice_form
+#   - slot_was_set:
+#     - requested_slot: areasize
+#   - intent: intent_areasize
+#   - action: action_set_areasize
+
 # - story: SolutionType Interruption
 #   steps:
 #   - active_loop: invoice_form
@@ -96,6 +105,8 @@ stories:
 #   - intent: intent_explain
 #   - action: utter_explain_units
 #   - action: invoice_form
+
+
 
 # - story: yearlybill Interruption
 #   steps:
@@ -118,3 +129,52 @@ stories:
 #   - intent: intent_explain
 #   - action: utter_explain_pk_city
 #   - action: invoice_form
+
+
+# - story: Something Else
+#   steps: 
+#   - action: utter_default
+#   - intent: intent_something_else
+#   - action: utter_ask_rephrase
+
+# - story: interactive_story_1
+#   steps:
+#   - intent: invoice_initiate
+#   - action: invoice_form
+#   - active_loop: invoice_form
+#   - slot_was_set:
+#     - requested_slot: SolutionType
+#   - slot_was_set:
+#     - SolutionType: Residential
+#   - slot_was_set:
+#     - SolutionType: Residential
+#   - slot_was_set:
+#     - requested_slot: pk_city
+#   - slot_was_set:
+#     - pk_city: Islamabad
+#   - slot_was_set:
+#     - pk_city: Islamabad
+#   - slot_was_set:
+#     - requested_slot: units
+#   - slot_was_set:
+#     - units: Kanals
+#   - slot_was_set:
+#     - units: Kanals
+#   - slot_was_set:
+#     - requested_slot: areasize
+#   - slot_was_set:
+#     - units: Kanals
+#   - slot_was_set:
+#     - areasize: '1000'
+#   - slot_was_set:
+#     - areasize: '1000'
+#   - slot_was_set:
+#     - requested_slot: yearlybill
+#   - slot_was_set:
+#     - yearlybill: '1000'
+#   - slot_was_set:
+#     - yearlybill: '1000'
+#   - slot_was_set:
+#     - requested_slot: null
+#   - active_loop: null
+#   - action: utter_happy

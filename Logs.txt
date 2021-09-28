@@ -5,3 +5,5 @@
 
 Notes:
 You can remove "action: invoice_form" after utter_explain, but then that would end the form.
+Adding "active_loop" at the end of the interruption also does not make it work.
+So adding "action: invoice_form" after the interruption is necessary. 

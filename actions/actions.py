@@ -7,7 +7,7 @@
 
 # This is a simple example for a custom action which utters "Hello World!"
 
-from typing import Any, Text, Dict, List
+from typing import Any, Text, Dict, List, Optional
 import json
 
 from rasa_sdk import Action, Tracker
@@ -15,6 +15,7 @@ from rasa_sdk.events import EventType
 from rasa_sdk.events import SlotSet
 from rasa_sdk.events import UserUtteranceReverted
 from rasa_sdk.executor import CollectingDispatcher
+from rasa_sdk.forms import FormValidationAction
 
 class ActionAskForums(Action):       #Make sure to check documentations and complete this actions function.
 
@@ -36,19 +37,19 @@ class ActionAskForums(Action):       #Make sure to check documentations and comp
         return []
 
 
-class ActionStoreUnits(Action):
+# class ActionStoreUnits(Action):
 
-    def name(self) -> Text:
-        return "action_receive_units"
+#     def name(self) -> Text:
+#         return "action_ask_areasize"
 
-    def run(self, dispatcher: CollectingDispatcher,
-            tracker: Tracker,
-            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+#     def run(self, dispatcher: CollectingDispatcher,
+#             tracker: Tracker,
+#             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
 
-        Units = str(tracker.get_slot("units"))
-        dispatcher.utter_message(text=f"And how many {Units} is available in your area?")
+#         Units = str(tracker.get_slot("units"))
+#         dispatcher.utter_message(text=f"And how many {Units} is available in your area for the installments?")
 
-        return [SlotSet("units", Units)]
+#         return []
 
 
 
@@ -70,6 +71,19 @@ class ActionVerifyYearlyBill(Action):
 
         return []
 
+class ActionSetAreaSize(Action):
+
+    def name(self) -> Text:
+        return "action_set_areasize"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
+        areasize_string = str(tracker.get_slot("areasize"))
+
+        return [SlotSet("areasize", areasize_string)]
+
 
 class ActionResetFormsSlots(Action):
 
@@ -82,6 +96,16 @@ class ActionResetFormsSlots(Action):
 
 
         return [SlotSet("units", None), SlotSet("yearlybill", None), SlotSet("SolutionType", None), SlotSet("pk_city", None)]
+
+
+# class ActionCheckUnitsBool(Action):
+#     def name(self) -> Text:
+#         return "action_check_units_bool"
+
+#     def run(
+#         self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict
+#     ) -> List[EventType]:
+#         return [SlotSet("units", not tracker.get_slot("units"))]        #Sets to true/false depending if it has value or not.
 
 
 # class ActionDefaultFallback(Action):
@@ -172,7 +196,7 @@ class ActionSaveConversation(Action):
 #     """Asks for an affirmation of the intent if NLU threshold is not met."""
 
 #     def name(self) -> Text:
-#         return "action_default_ask_affirmation"
+#         return "action_two_stage_fallback"
 
 #     # def __init__(self) -> None:
 #     #     import pandas as pd
@@ -253,3 +277,97 @@ class ActionSaveConversation(Action):
 
 #         dispatcher.utter_message(template="utter_ask_affirmation")
 #         return [UserUtteranceReverted()]
+
+
+# class ActionDefaultFallback(Action):
+#     def name(self) -> Text:
+#         return "action_default_fallback"
+
+#     def run(
+#         self,
+#         dispatcher: CollectingDispatcher,
+#         tracker: Tracker,
+#         domain: Dict[Text, Any],
+#     ) -> List[Dict[Text, Any]]:
+
+#         # tell the user they are being passed to a customer service agent
+#         dispatcher.utter_message(text="I am passing you to a human...")
+        
+#         # assume there's a function to call customer service
+#         # pass the tracker so that the agent has a record of the conversation between the user
+#         # and the bot for context
+
+     
+#         # pause the tracker so that the bot stops responding to user input
+#         return [UserUtteranceReverted()]
+
+
+
+# class TwoStageFallback(Action):
+#     def name(self) -> Text:
+#         return "action_two_stage_fallback"
+
+#     def run(
+#         self,
+#         dispatcher: CollectingDispatcher,
+#         tracker: Tracker,
+#         domain: Dict[Text, Any],
+#     ) -> List[Dict[Text, Any]]:
+
+#         # tell the user they are being passed to a customer service agent
+#         dispatcher.utter_message(text="I am passing you to a human...")
+        
+#         # assume there's a function to call customer service
+#         # pass the tracker so that the agent has a record of the conversation between the user
+#         # and the bot for context
+
+     
+#         # pause the tracker so that the bot stops responding to user input
+#         return [UserUtteranceReverted()]
+
+
+
+class TestAction(FormValidationAction):
+    def name(self) -> Text:
+        return "test_action1"
+
+    async def required_slots(   
+        self,
+        slots_mapped_in_domain: List[Text],
+        dispatcher: "CollectingDispatcher",
+        tracker: "Tracker",
+        domain: Dict[Text, Any],
+    ) -> Optional[List[Text]]:
+        required_slots = slots_mapped_in_domain + ["outdoor_seating"]
+        print(slots_mapped_in_domain)
+        return required_slots
+
+    # async def extract_outdoor_seating(
+    #     self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict
+    # ) -> Dict[Text, Any]:
+    #     text_of_last_user_message = tracker.latest_message.get("text")
+    #     sit_outside = "outdoor" in text_of_last_user_message
+
+    #     return {"outdoor_seating": sit_outside}
+
+
+class ValidateRestaurantForm(FormValidationAction):
+    def name(self) -> Text:
+        return "validate_invoice_form3"
+
+    def validate_customernumber(       #This will act as the def run for the specific slot.
+        self,
+        slot_value: Any,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: Dict[Text, Any],
+    ) -> Dict[Text, Any]:
+
+
+        if slot_value.lower() :
+            # validation succeeded, set the value of the "cuisine" slot to value
+            return {"cuisine": slot_value}
+        else:
+            # validation failed, set this slot to None so that the
+            # user will be asked for the slot again
+            return {"cuisine": None}

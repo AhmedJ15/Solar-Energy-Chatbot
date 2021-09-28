@@ -8,6 +8,7 @@ pipeline:
 # # See https://rasa.com/docs/rasa/tuning-your-model for more information.
   - name: WhitespaceTokenizer
   - name: RegexFeaturizer
+  - name: RegexEntityExtractor
   # - name: LexicalSyntacticFeaturizer    #It helps in extract entity such as "Kanals".
   - name: CountVectorsFeaturizer
   - name: CountVectorsFeaturizer
@@ -24,6 +25,13 @@ pipeline:
   - name: FallbackClassifier
     threshold: 0.7
     ambiguity_threshold: 0.1
+  - name: "DucklingEntityExtractor"
+  # url of the running duckling server
+    url: "http://localhost:8000"
+  # dimensions to extract
+    dimensions: ["email"]
+
+
 
 # Configuration for Rasa Core.
 # https://rasa.com/docs/rasa/core/policies/
@@ -45,3 +53,9 @@ policies:
 #     max_history: 5
 #     epochs: 100
 #     constrain_similarities: true
+# - name: TwoStageFallbackPolicy
+#   nlu_threshold: 0.5 
+#   core_threshold: 0.5
+#   fallback_core_action_name: "action_default_fallback"
+#   fallback_nlu_action_name: "action_default_fallback"
+#   deny_suggestion_intent_name: "out_of_scope"

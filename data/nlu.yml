@@ -1,22 +1,17 @@
 version: "2.0"
-
 nlu:
-
-
-# - intent: out_of_scope
-#   examples: |
-#     - I want to buy a pizza
-#     - change my password please
-    
+- intent: out_of_scope
+  examples: |
+    - I want to buy a pizza
+    - change my password please
 - intent: intent_invoice_cancel
   examples: |
     - Cancel the invoice please
     - cancel
     - I dont want to do this anymore
-    - stop 
+    - stop
     - I want to do something else
     - Go back
-
 - intent: invoice_initiate
   examples: |
     - hello I would like an invoice
@@ -25,14 +20,12 @@ nlu:
     - Can you please initiate an invoice for me?
     - invoice please
     - I need help with invoice
-
+    - I need help with an invoice please
 - intent: pakistani_greet
   examples: |
     - AoA
     - Asalamualaikum
     - Salaam
-    
-
 - intent: pakistani_cities
   examples: |
     - [Karachi](pk_city)
@@ -40,7 +33,7 @@ nlu:
     - [Lahore](pk_city)
     - [Quetta](pk_city)
     - [Peshawar](pk_city)
-
+    - [Islamabad](pk_city)
 - intent: reply_units
   examples: |
     - [Kanals](units)
@@ -53,19 +46,19 @@ nlu:
     - [Kanals](units) please
     - Please measure them in [Kanals](units)
     - I would like [Kanals](units) please
-    
+    - [Kanals](units)
 - intent: reply_yearlybill
   examples: |
-    - [1000](yearlybill)
-    - [100](yearlybill)
-    - [e1e](yearlybill)
-    - My yearly bill is [1000](yearlybill)
-    - It's around [100](yearlybill)
-    - About [10000](yearlybill)
-    - Its around [100](yearlybill)
-    - It is around [100](yearlybill)
-    - Around [10103](yearlybill)
-
+    - [1000](numbers)
+    - [100](numbers)
+    - [e1e](numbers)
+    - My yearly bill is [1000](numbers)
+    - It's around [100](numbers)
+    - About [10000](numbers)
+    - Its around [100](numbers)
+    - It is around [100](numbers)
+    - Around [10103](numbers)
+    - About [1000](numbers)
 - intent: residential
   examples: |
     - [home](SolutionType)
@@ -75,7 +68,7 @@ nlu:
     - For my [home](SolutionType)
     - For my [residence](SolutionType)
     - Its for my [residence](SolutionType)
-
+    - [Residential](SolutionType)
 - intent: industrial
   examples: |
     - [business](SolutionType)
@@ -86,8 +79,15 @@ nlu:
     - Its for my [business](SolutionType)
     - For my [business](SolutionType)
     - For my [industry](SolutionType)
-
-
+- intent: intent_areasize
+  examples: |
+    - [10](numbers)
+    - Its around [100](numbers)
+    - About [1000](numbers)
+    - Its around [1000](numbers)
+    - The area is about [1000](numbers)
+    - I have around [1000](numbers) space available
+    - Around [1000](numbers) is available
 - intent: greet1
   examples: |
     - hey
@@ -103,7 +103,6 @@ nlu:
     - goodmorning
     - goodevening
     - good afternoon
-
 - intent: greet2
   examples: |
     - how are you?
@@ -113,7 +112,6 @@ nlu:
     - how is it going?
     - great how about you?
     - I'm doing fine, how about you?
-
 - intent: goodbye
   examples: |
     - good afternoon
@@ -127,7 +125,6 @@ nlu:
     - see you around
     - bye bye
     - see you later
-
 - intent: affirm
   examples: |
     - yes
@@ -136,7 +133,6 @@ nlu:
     - of course
     - that sounds good
     - correct
-
 - intent: deny
   examples: |
     - no
@@ -146,7 +142,6 @@ nlu:
     - don't like that
     - no way
     - not really
-
 - intent: mood_great
   examples: |
     - perfect
@@ -164,7 +159,6 @@ nlu:
     - so good
     - so perfect
     - good
-
 - intent: mood_unhappy
   examples: |
     - my day was horrible
@@ -181,14 +175,12 @@ nlu:
     - extremly sad
     - so saad
     - so sad
-
 - intent: bot_challenge
   examples: |
     - are you a bot?
     - are you a human?
     - am I talking to a bot?
     - am I talking to a human?
-
 - intent: intent_explain
   examples: |
     - Why do you need to know that?
@@ -196,6 +188,31 @@ nlu:
     - Why is that important?
     - Explain please
     - Why do you want that information?
-    
-    
 
+- intent: greet3
+  examples: |
+    - testing action
+    - action test
+    - test
+
+
+- intent: intent_give_name
+  examples: |
+    - My name is [Ahmed](customername)
+    - [Ali](customername)
+    - Name is [Ajmal](customername)
+
+- intent: intent_give_number
+  examples: |
+    - My number is [03319525364](contactnumber_regex)
+    - Number is [923319525364](contactnumber_regex)
+
+- intent: intent_give_email
+  examples: |
+    - My email is [awarajk@gmail.com](email)
+    - email is [awarajk@gmail.com](email)
+
+- regex: contactnumber_regex
+  examples: |
+    - ^92\d{10}
+    - ^0\d{10}

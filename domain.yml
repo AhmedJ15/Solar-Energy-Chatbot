@@ -1,170 +1,250 @@
-version: "2.0"
-
-intents:
-  - out_of_scope
-  - intent_explain
-  - intent_invoice_cancel
-  - invoice_initiate
-  - pakistani_greet
-  - pakistani_cities
-  - residential
-  - industrial
-  - reply_units
-  - reply_yearlybill
-  - greet1
-  - greet2
-  - goodbye
-  - affirm
-  - deny
-  - mood_great
-  - mood_unhappy
-  - bot_challenge
-
-responses:
-
-  # utter_out_of_scope:
-  # - text: "I'm sorry, but I am not able to process that."
-
-  utter_out_of_scope2:
-  - text: "I'm sorry, but I was not programmed to be able to handle that."
-
-  utter_residentialquery:
-  - text: "Ok, where is your home located?"
-
-  utter_industrialquery:
-  - text: "Ok, where is your business located?"
-
-  utter_ask_units: 
-  - text: "Alright, which units would you prefer?"
-
-  utter_ask_yearlybill: 
-  - text: "Great! One last question: What is your average yearly bill?"
-
-  # utter_ask_pk_city:   #
-  # - text: "Alright! Which city are you located in?"
-
-  utter_ask_SolutionType:
-  - text: "Alright! What type of Solution are you looking for?"
-
-  utter_units1:
-  - text: "For quick estimations, I would need to know roughly the area available for solar installation."
-
-  utter_units2:
-  - text: "To start with, what units would you prefer?"
-
-  utter_yearlybill:
-  - text: "Great! One last question: What is your average yearly bill?"
-
-  utter_pakistani_greet:
-  - text: "Waalaikumsalam! How are you?"
-
-  utter_greet:
-  - text: "Hey! How are you?"
-
-  utter_greet2:
-  - text: "I'm doing great. Thanks for asking!"
-
-  utter_deliver_help:
-  - text: "So, how may I help you today?"
-
-  utter_cheer_up:
-  - text: "Oh! I am very sorry to hear that! Is there anyway I can do to help you?"
-
-
-  utter_happy:
-  - text: "That's great to hear!"
-
-  utter_goodbye:
-  - text: "Bye"
-
-  utter_iamabot:
-  - text: "I am a bot, powered by Rasa."
-
-  utter_explain_pk_city:
-  - text: "We need to know which city, so we can prepare your invoice accordingly."
-
-  utter_explain_yearlybill:
-  - text: "We need that information to be able to calculate the potential amount of cut you'll be making after the installation."
-
-  utter_explain_units:
-  - text: "We need a unit to calculate whether it is large enough for the solar panels to be installed."
-
-  utter_explain_SolutionType:
-  - text: "We need this information, so we can suggest you the best installments."
-
-  utter_cancel_forms:
-  - text: "Alright, I am cancelling the invoice. Is there perhaps anything else I could help you with?"
-
-
-  utter_ask_rephrase:          #Check the following for 2-stage fallback: https://rasa.com/docs/rasa/fallback-handoff#two-stage-fallback
-  - text: "Can you kindly rephrase that please?"
-
-  # utter_default:
-  # - text: "I'm sorry, but I can't seem to help you."
-
-  utter_default:
-    - text: “Do you want to make a reservation?”
-      buttons:
-        - title: Main Menu
-          payload: /menu
-
-  utter_ask_affirmation:
-  - text: "Yooo what?"
-
-entities:
-  - yearlybill
-  - units
-  - pk_city
-  - SolutionType
-
-slots:
-
-  yearlybill:
-    type: text
-
-  units:
-    type: text
-
-  pk_city:
-    type: text
-
-  SolutionType:
-    type: text
-
-  requested_slot:
-    type: categorical
-    values:
-      - yearlybill
-      - units
-      - pk_city
-      - SolutionType
-    influence_conversation: true
-
-actions:
-- action_verify_yearlybill
-- action_receive_units
-#- action_receive_entity
-- action_ask_pk_city
-- action_cancel_invoice
-- action_save_conversation
-
-forms:
-  invoice_form:
-    required_slots: 
-      SolutionType:
-        - type: from_entity
-          entity: SolutionType
-      pk_city:
-        - type: from_entity
-          entity: pk_city 
-      units:
-        - type: from_entity
-          entity: units
-      yearlybill:
-        - type: from_entity
-          entity: yearlybill
-
-
+version: '2.0'
+config:
+  store_entities_as_slots: true
 session_config:
   session_expiration_time: 60
   carry_over_slots_to_new_session: true
+intents:
+- pakistani_cities:
+    use_entities: true
+- reply_units:
+    use_entities: true
+- invoice_initiate:
+    use_entities: true
+- residential:
+    use_entities: true
+- reply_yearlybill:
+    use_entities: true
+- out_of_scope:
+    use_entities: true
+- intent_explain:
+    use_entities: true
+- intent_invoice_cancel:
+    use_entities: true
+- pakistani_greet:
+    use_entities: true
+- industrial:
+    use_entities: true
+- greet1:
+    use_entities: true
+- greet2:
+    use_entities: true
+- goodbye:
+    use_entities: true
+- affirm:
+    use_entities: true
+- deny:
+    use_entities: true
+- mood_great:
+    use_entities: true
+- mood_unhappy:
+    use_entities: true
+- bot_challenge:
+    use_entities: true
+- greet3:
+    use_entities: true
+- intent_areasize:
+    use_entities: true
+- intent_give_email:
+    use_entities: true
+- intent_give_name:
+    use_entities: true
+- intent_give_number:
+    use_entities: true
+- nlu_fallback:
+    use_entities: true
+entities:
+- SolutionType
+- areasize
+- pk_city
+- units
+- yearlybill
+- customername
+- customernumber
+- customeremail
+- numbers
+- email
+- contactnumber_regex
+slots:
+  yearlybill:
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: false
+    influence_conversation: true
+  units:
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: true
+  pk_city:
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: true
+  SolutionType:
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: true
+  areasize:
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: true
+  customername:
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: true
+  customernumber:
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: true
+  customeremail:
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: true
+  email:
+    type: any
+  requested_slot:
+    type: rasa.shared.core.slots.CategoricalSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: true
+    values:
+    - units
+    - pk_city
+    - solutiontype
+    - areasize
+    - yearlybill
+    - customername
+    - customernumber
+    # - customeremail
+    - email
+responses:
+  utter_out_of_scope:
+  - text: I'm sorry, but I am not able to process that.
+  utter_out_of_scope2:
+  - text: I'm sorry, but I was not programmed to be able to handle that.
+  utter_residentialquery:
+  - text: Ok, where is your home located?
+  utter_industrialquery:
+  - text: Ok, where is your business located?
+  utter_ask_units:
+  - text: Alright, which units would you prefer?
+  utter_ask_yearlybill:
+  - text: 'Great! One last question: What is your average yearly bill?'
+  utter_ask_SolutionType:
+  - text: Alright! What type of Solution are you looking for?
+  utter_ask_areasize:
+  - text: How many Kanals is available?
+  utter_units1:
+  - text: For quick estimations, I would need to know roughly the area available for solar installation.
+  utter_units2:
+  - text: To start with, what units would you prefer?
+  utter_yearlybill:
+  - text: 'Great! One last question: What is your average yearly bill?'
+  utter_pakistani_greet:
+  - text: Waalaikumsalam! How are you?
+  utter_greet:
+  - text: Hey! How are you?
+  utter_greet2:
+  - text: I'm doing great. Thanks for asking!
+  utter_deliver_help:
+  - text: So, how may I help you today?
+  utter_cheer_up:
+  - text: Oh! I am very sorry to hear that! Is there anyway I can do to help you?
+  utter_happy:
+  - text: That's great to hear!
+  utter_goodbye:
+  - text: Bye
+  utter_iamabot:
+  - text: I am a bot, powered by Rasa.
+  utter_explain_pk_city:
+  - text: We need to know which city, so we can prepare your invoice accordingly.
+  utter_explain_yearlybill:
+  - text: We need that information to be able to calculate the potential amount of cut you'll be making after the installation.
+  utter_explain_units:
+  - text: We need a unit to calculate whether it is large enough for the solar panels to be installed.
+  utter_explain_SolutionType:
+  - text: We need this information, so we can suggest you the best installments.
+  utter_explain_areasize:
+  - text: We need to know the size available, so we can calculate the estimated costs.
+  utter_cancel_forms:
+  - text: Alright, I am cancelling the invoice. Is there perhaps anything else I could help you with?
+  utter_ask_rephrase:
+  - text: Can you kindly rephrase that please?
+  utter_default:
+  - text: I'm sorry, but I can't seem to help you.
+  utter_ask_affirmation:
+  - text: Yooo what?
+  utter_require_personal_info:
+  - text: Alright! I will now require your contact information, so I can generate an invoice for you.
+  utter_ask_customername:
+  - text: May I please know your name?
+  utter_ask_customernumber:
+  - text: Please also mention the mobile number that we can use to contact you.
+  utter_ask_email:
+  - text: Lastly, please also tell us your email.
+actions:
+- action_ask_pk_city
+- action_cancel_invoice
+- action_receive_units
+- action_save_conversation
+- action_verify_yearlybill
+- utter_happy
+- test_action1
+- action_set_areasize
+forms:
+  invoice_form:
+    ignored_intents:
+    - reply_yearlybill
+    required_slots:
+      SolutionType:
+      - entity: SolutionType
+        type: from_entity
+      pk_city:
+      - entity: pk_city
+        type: from_entity
+      units:
+      - entity: units
+        type: from_entity
+      areasize:
+      - entity: numbers
+        intent: intent_areasize
+        not_intent: reply_yearlybill
+        type: from_entity
+  invoice_form2:
+    ignored_intents:
+    - intent_areasize
+    required_slots:
+      yearlybill:
+      - entity: numbers
+        intent: reply_yearlybill
+        not_intent: intent_areasize
+        type: from_entity
+  invoice_form3:
+    ignored_intents:
+    - intent_areasize
+    - reply_yearlybill
+    required_slots:
+      # customeremail:
+      # - entity: customeremail
+      #   type: from_entity
+      customername:
+      - entity: customername
+        type: from_entity
+      # customernumber:
+      # - type: from_intent
+      #   entity: contactnumber_regex
+      #   intent: intent_give_number
+      email:
+      - entity: email
+        type: from_entity
+      customernumber:
+      - entity: contactnumber_regex
+        intent: intent_give_number
+        type: from_entity
+

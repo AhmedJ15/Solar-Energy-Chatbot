@@ -1,19 +1,49 @@
 version: "2.0"
 
 rules:
-- rule: Activate form
+- rule: Activate invoice form 1 
   steps:
   - intent: invoice_initiate
   - action: invoice_form
   - active_loop: invoice_form
 
-- rule: Submit form
+- rule: Submit invoice_form
   condition:
   # Condition that form is active.
   - active_loop: invoice_form
   steps:
   # Form is deactivated
   - action: invoice_form
+  - active_loop: null
+  # - slot_was_set:
+  #   - requested_slot: null
+  # The actions we want to run when the form is submitted.
+  - action: utter_happy
+  - action: invoice_form2
+  - active_loop: invoice_form2
+
+- rule: Submit invoice_form2
+  condition:
+  # Condition that form is active.
+  - active_loop: invoice_form2
+  steps:
+  # Form is deactivated
+  - action: invoice_form2
+  - active_loop: null
+  # - slot_was_set:
+  #   - requested_slot: null
+  # The actions we want to run when the form is submitted.
+  - action: utter_require_personal_info
+  - action: invoice_form3
+  - active_loop: invoice_form3
+
+- rule: Submit invoice_form3
+  condition:
+  # Condition that form is active.
+  - active_loop: invoice_form3
+  steps:
+  # Form is deactivated
+  - action: invoice_form3
   - active_loop: null
   # - slot_was_set:
   #   - requested_slot: null
@@ -61,15 +91,26 @@ rules:
   - action: utter_explain_units
   - action: invoice_form
 
-- rule: yearlybill Interruption
+
+- rule: areasize Interruption
   condition:
   - active_loop: invoice_form
+  - slot_was_set:
+    - requested_slot: areasize
+  steps:
+  - intent: intent_explain
+  - action: utter_explain_areasize
+  - action: invoice_form
+
+- rule: yearlybill Interruption
+  condition:
+  - active_loop: invoice_form2
   - slot_was_set:
     - requested_slot: yearlybill
   steps:
   - intent: intent_explain
   - action: utter_explain_yearlybill
-  - action: invoice_form
+  - action: invoice_form2
 
 - rule: Implementation of the Two-Stage-Fallback
   steps:
@@ -79,10 +120,7 @@ rules:
 
 
 
-- rule: Verify bill 
-  steps:
-  - intent: reply_yearlybill
-  - action: action_verify_yearlybill
+
 
 # - rule: If User says something Out of Scope, utter_out_of_scope should be executed.
 #   steps:
@@ -122,3 +160,24 @@ rules:
   # - action: action_save_conversation
 
 
+- rule: Verify YearlyBill
+  steps:
+  - intent: reply_yearlybill
+  - action: action_verify_yearlybill
+
+- rule: Verify AreaSize
+  condition:
+  - active_loop: invoice_form
+  - slot_was_set:
+    - requested_slot: areasize
+  steps:
+  - action: utter_ask_areasize
+  - intent: intent_areasize
+  - action: action_set_areasize
+
+- rule: Test
+  steps:
+  - intent: greet3
+  - action: test_action1
+
+  
