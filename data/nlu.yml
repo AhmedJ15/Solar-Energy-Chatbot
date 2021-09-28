@@ -198,21 +198,24 @@ nlu:
 
 - intent: intent_give_name
   examples: |
-    - My name is [Ahmed](customername)
+    - My name is [Khan](customername)
     - [Ali](customername)
     - Name is [Ajmal](customername)
 
 - intent: intent_give_number
   examples: |
-    - My number is [03319525364](contactnumber_regex)
-    - Number is [923319525364](contactnumber_regex)
+    - My number is [03319525364](numbers)
+    - Number is [923319525364](numbers)
+    - [03319545364](numbers) is the number
+    - You can call me on [03319525334](numbers)
+
 
 - intent: intent_give_email
   examples: |
     - My email is [awarajk@gmail.com](email)
     - email is [awarajk@gmail.com](email)
 
-- regex: contactnumber_regex
+- regex: contactnumber_regex    #Not being used at the moment.
   examples: |
     - ^92\d{10}
     - ^0\d{10}

@@ -363,11 +363,13 @@ class ValidateRestaurantForm(FormValidationAction):
         domain: Dict[Text, Any],
     ) -> Dict[Text, Any]:
 
-
-        if slot_value.lower() :
-            # validation succeeded, set the value of the "cuisine" slot to value
-            return {"cuisine": slot_value}
+        #When using FormsValidationAction in your class, you can simply access the slot using slot_value.
+        store_phonenumber = slot_value.lower()
+        length_of_phonenumber = len(store_phonenumber)
+        if (store_phonenumber.startswith("03") and length_of_phonenumber == 11) or (store_phonenumber.startswith("+92") and length_of_phonenumber == 13):
+            #If Phone Number starts with 03 and has length 11 OR If Phone Number starts with +92 and has length 13, then set slot.
+            return {"customernumber": slot_value}
         else:
             # validation failed, set this slot to None so that the
             # user will be asked for the slot again
-            return {"cuisine": None}
+            return {"customernumber": None}

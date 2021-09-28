@@ -175,9 +175,13 @@ rules:
   - intent: intent_areasize
   - action: action_set_areasize
 
-- rule: Test
-  steps:
-  - intent: greet3
-  - action: test_action1
+# - rule: Test
+#   steps:
+#   - intent: greet3
+#   - action: test_action1
 
-  
+# - rule: Test2
+#   steps:
+#   - intent: greet3
+#   - action: invoice_form3
+#   - active_loop: invoice_form3

@@ -197,6 +197,7 @@ actions:
 - utter_happy
 - test_action1
 - action_set_areasize
+- validate_invoice_form3
 forms:
   invoice_form:
     ignored_intents:
@@ -244,7 +245,7 @@ forms:
       - entity: email
         type: from_entity
       customernumber:
-      - entity: contactnumber_regex
+      - entity: numbers
         intent: intent_give_number
         type: from_entity
 
