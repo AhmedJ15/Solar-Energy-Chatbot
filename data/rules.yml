@@ -1,16 +1,136 @@
 version: "2.0"
 
 rules:
-
-- rule: Verify bill 
+- rule: Activate invoice form 1 
   steps:
-  - intent: reply_yearlybill
-  - action: action_verify_yearlybill
+  - intent: invoice_initiate
+  - action: invoice_form
+  - active_loop: invoice_form
 
-- rule: If User says something Out of Scope, utter_out_of_scope should be executed.
+- rule: Submit invoice_form
+  condition:
+  # Condition that form is active.
+  - active_loop: invoice_form
+  steps:
+  # Form is deactivated
+  - action: invoice_form
+  - active_loop: null
+  # - slot_was_set:
+  #   - requested_slot: null
+  # The actions we want to run when the form is submitted.
+  - action: utter_happy
+  - action: invoice_form2
+  - active_loop: invoice_form2
+
+- rule: Submit invoice_form2
+  condition:
+  # Condition that form is active.
+  - active_loop: invoice_form2
+  steps:
+  # Form is deactivated
+  - action: invoice_form2
+  - active_loop: null
+  # - slot_was_set:
+  #   - requested_slot: null
+  # The actions we want to run when the form is submitted.
+  - action: utter_require_personal_info
+  - action: invoice_form3
+  - active_loop: invoice_form3
+
+- rule: Submit invoice_form3
+  condition:
+  # Condition that form is active.
+  - active_loop: invoice_form3
+  steps:
+  # Form is deactivated
+  - action: invoice_form3
+  - active_loop: null
+  # - slot_was_set:
+  #   - requested_slot: null
+  # The actions we want to run when the form is submitted.
+  - action: utter_happy
+
+- rule: End Form
+  condition:
+  - active_loop: invoice_form
+  steps:
+  - intent: intent_invoice_cancel
+  - action: action_cancel_invoice
+  - action: action_deactivate_loop
+  - active_loop: null
+  - action: utter_cancel_forms
+
+
+- rule: SolutionType Interruption
+  condition:
+  - active_loop: invoice_form
+  - slot_was_set:
+    - requested_slot: SolutionType
+  steps:
+  - intent: intent_explain
+  - action: utter_explain_SolutionType
+  - action: invoice_form
+
+- rule: pk_city Interruption
+  condition:
+  - active_loop: invoice_form
+  - slot_was_set:
+    - requested_slot: pk_city
+  steps:
+  - intent: intent_explain
+  - action: utter_explain_pk_city
+  - action: invoice_form
+
+- rule: units Interruption
+  condition:
+  - active_loop: invoice_form
+  - slot_was_set:
+    - requested_slot: units
+  steps:
+  - intent: intent_explain
+  - action: utter_explain_units
+  - action: invoice_form
+
+
+- rule: areasize Interruption
+  condition:
+  - active_loop: invoice_form
+  - slot_was_set:
+    - requested_slot: areasize
+  steps:
+  - intent: intent_explain
+  - action: utter_explain_areasize
+  - action: invoice_form
+
+- rule: yearlybill Interruption
+  condition:
+  - active_loop: invoice_form2
+  - slot_was_set:
+    - requested_slot: yearlybill
+  steps:
+  - intent: intent_explain
+  - action: utter_explain_yearlybill
+  - action: invoice_form2
+
+- rule: Implementation of the Two-Stage-Fallback
   steps:
   - intent: nlu_fallback
-  - action: utter_out_of_scope
+  - action: action_two_stage_fallback
+  - active_loop: action_two_stage_fallback
+
+
+
+
+
+# - rule: If User says something Out of Scope, utter_out_of_scope should be executed.
+#   steps:
+#   - intent: nlu_fallback
+#   - action: utter_out_of_scope
+
+- rule: If User says something Out of Scope, utter_out_of_scope2 should be executed. (2)
+  steps:
+  - intent: out_of_scope
+  - action: utter_out_of_scope2
 
 - rule: Pakistani Greet
   steps: 
@@ -33,3 +153,35 @@ rules:
   - intent: bot_challenge
   - action: utter_iamabot
 
+- rule: Always respond
+  steps:
+  - intent: greet1
+  - action: utter_greet
+  # - action: action_save_conversation
+
+
+- rule: Verify YearlyBill
+  steps:
+  - intent: reply_yearlybill
+  - action: action_verify_yearlybill
+
+- rule: Verify AreaSize
+  condition:
+  - active_loop: invoice_form
+  - slot_was_set:
+    - requested_slot: areasize
+  steps:
+  - action: utter_ask_areasize
+  - intent: intent_areasize
+  - action: action_set_areasize
+
+# - rule: Test
+#   steps:
+#   - intent: greet3
+#   - action: test_action1
+
+# - rule: Test2
+#   steps:
+#   - intent: greet3
+#   - action: invoice_form3
+#   - active_loop: invoice_form3
