@@ -231,16 +231,9 @@ forms:
     - intent_areasize
     - reply_yearlybill
     required_slots:
-      # customeremail:
-      # - entity: customeremail
-      #   type: from_entity
       customername:
       - entity: customername
         type: from_entity
-      # customernumber:
-      # - type: from_intent
-      #   entity: contactnumber_regex
-      #   intent: intent_give_number
       email:
       - entity: email
         type: from_entity

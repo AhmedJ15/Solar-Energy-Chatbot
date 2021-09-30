@@ -119,14 +119,6 @@ rules:
   - active_loop: action_two_stage_fallback
 
 
-
-
-
-# - rule: If User says something Out of Scope, utter_out_of_scope should be executed.
-#   steps:
-#   - intent: nlu_fallback
-#   - action: utter_out_of_scope
-
 - rule: If User says something Out of Scope, utter_out_of_scope2 should be executed. (2)
   steps:
   - intent: out_of_scope
@@ -174,14 +166,3 @@ rules:
   - action: utter_ask_areasize
   - intent: intent_areasize
   - action: action_set_areasize
-
-# - rule: Test
-#   steps:
-#   - intent: greet3
-#   - action: test_action1
-
-# - rule: Test2
-#   steps:
-#   - intent: greet3
-#   - action: invoice_form3
-#   - active_loop: invoice_form3
